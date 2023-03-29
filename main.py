@@ -16,12 +16,13 @@ from functools import wraps
 from sqlalchemy.ext.declarative import declarative_base
 from flask_ckeditor import CKEditorField
 from flask_gravatar import Gravatar
+import os
 
 
 Base = declarative_base()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 ckeditor = CKEditor(app)
 Bootstrap(app)
 gravatar = Gravatar(app,
@@ -35,7 +36,7 @@ gravatar = Gravatar(app,
 EMAIL = 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200'
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
